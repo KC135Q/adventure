@@ -1,79 +1,116 @@
-import React from 'react'
-import {Button, Grid} from '@material-ui/core'
+import React, { Component } from 'react';
+import {Button, Grid } from '@material-ui/core'
+import AccountCircle from '@material-ui/icons/AccountCircle'
+import Work from '@material-ui/icons/Work'
+import PhoneInTalk from '@material-ui/icons/PhoneInTalk'
+import Spa from '@material-ui/icons/Spa'
+
+const bgImage = "./meadow_blue.png"
+
+const bgStyle = {
+  backgroundImage: `url(${bgImage})`,
+  backgroundColor: 'rgba(0,0,0,.5',
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundAttachment: "fixed",
+  color: 'rgba(255, 255, 255, 0.5)'
+}
+
+const iconStyle = {
+  padding: '20px',
+  backgroundColor: 'rgba(255, 255, 255, 0.5)',
+  borderRadius: "5px",
+  color: "black",
+  height: "60px",
+  width: "40px"
+}
+
+const iconStyleRev = {
+  padding: '20px',
+  backgroundColor: "black",
+  borderRadius: "5px",
+  color: 'rgba(255, 255, 255, 0.5)',
+  height: "60px",
+  width: "40px"
+}
 
 const vAlignStyle = {
-  border: "1px dashed white",
-  height: "450px",
   display: "flex",
   alignItems: "center"
 }
 
 const northStyle = {
-  border: "1px dashed white",
-  marginBottom: "-30px"
+  marginBottom: "0px",
+  textAlign: "center"
 }
 
 const eastStyle = {
-  border: "1px dashed white",
-  marginLeft: "-30px",
   textAlign: "left"
 }
 
 const southStyle = {
-  border: "1px dashed white",
   justifyContent: "center"
 }
 
 const westStyle = {
-  border: "1px dashed white",
-  marginRight: "-30px",
   textAlign: "right"
 }
 
-const borderStyle = {
-  border: "1px dashed purple",
-}
+class Game extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: 'Welcome!'
+    };
+  }
 
-function Game () {
-  return (
-    <Grid container spacing={8}>
+  render() {
+
+  return(
+    <Grid container spacing={8} style={ bgStyle }>
       <Grid container item xs={12} spacing={24}>
-        <Grid item xs='2' style={borderStyle}>
-          <p>Profile</p>
+        <Grid item xs={2}>
+          <AccountCircle 
+            style={iconStyle} 
+            onMouseOver={() => {this.setState({message: 'view profile'})}}
+            onMouseLeave={() => {this.setState({message: 'Remember to sleep when you can'})}}
+          />
         </Grid>
-        <Grid item xs='8'>
-          <Button color="primary" variant="contained" style={northStyle}>North</Button>
+        <Grid item xs={8} style={northStyle}>
+          <Button color="primary" variant="contained" >Go North</Button>
         </Grid>
-        <Grid item xs='2'>
-          <p>Inventory</p>
+        <Grid item xs={2} >
+          <Work style={iconStyle} onMouseOver={() => {this.setState({message: 'check inventory'})}}/>
         </Grid>
       </Grid>
 
       <Grid container item xs={12} spacing={24} style={vAlignStyle} >
-        <Grid item xs='3' style={westStyle}>
-          <Button color="primary" variant="contained">West</Button>
+        <Grid item xs={3} style={westStyle}>
+          <Button color="primary" variant="contained">Go West</Button>
         </Grid>
-        <Grid item xs='6'  style={borderStyle}>
-          < img src="https://via.placeholder.com/450/0000FF/FFFFFF?Text=Down.com" alt="Placeholder" />
+        <Grid item xs={6} >
+          < img src="./cabin_768x450.jpg" alt="Placeholder" />
         </Grid>
-        <Grid item xs='3' style={eastStyle}>
-          <Button color="primary" variant="contained">East</Button> 
+        <Grid item xs={3} style={eastStyle}>
+          <Button color="primary" variant="contained">Go East</Button> 
         </Grid>
       </Grid>
 
-      <Grid container item xs={12} spacing={24} style={borderStyle}>
-        <Grid item xs='2'>
-          <p>Objects</p>
+      <Grid container item xs={12} spacing={24}>
+        <Grid item xs={2}>
+          <Spa style={iconStyle} onMouseOver={() => {this.setState({message: 'get objects'})}}/>
         </Grid>
-        <Grid item xs='8'>
-          <Button color="primary" variant="contained" style={southStyle}>South</Button>
+        <Grid item xs={8}>
+          <Button color="primary" variant="contained" style={southStyle}>Go South</Button>
+          <p style={{ backgroundColor: 'rgba(0,0,0,.25', color: 'rgba(255,255,255,0.75)'}}>{this.state.message}</p>
         </Grid>
-        <Grid item xs='2'>
-          <p>Interaction</p>
+        <Grid item xs={2}>
+          <PhoneInTalk style={iconStyle} onMouseOver={() => {this.setState({message: 'talk to someone'})}}/>
         </Grid>
       </Grid>
     </Grid>
   )
+  }
 }
 
 export default Game
