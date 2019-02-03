@@ -84,12 +84,12 @@ class Game extends Component {
         </Grid>
       </Grid>
 
-      <Grid container item xs={12} spacing={24} style={vAlignStyle} >
+      <Grid container item xs={12} spacing={24} style={vAlignStyle}  >
         <Grid item xs={3} style={westStyle}>
           <Button color="primary" variant="contained">Go West</Button>
         </Grid>
         <Grid item xs={6} >
-          < img src="./cabin_768x450.jpg" alt="Placeholder" />
+          < img src="./cabin_768x450.jpg" alt="Placeholder"  />
         </Grid>
         <Grid item xs={3} style={eastStyle}>
           <Button color="primary" variant="contained">Go East</Button> 
