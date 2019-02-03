@@ -26,15 +26,6 @@ const iconStyle = {
   width: "40px"
 }
 
-const iconStyleRev = {
-  padding: '20px',
-  backgroundColor: "black",
-  borderRadius: "5px",
-  color: 'rgba(255, 255, 255, 0.5)',
-  height: "60px",
-  width: "40px"
-}
-
 const vAlignStyle = {
   display: "flex",
   alignItems: "center"
