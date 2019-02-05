@@ -3,7 +3,7 @@ import {Avatar, Dialog, DialogTitle, List, ListItem, ListItemAvatar, ListItemTex
 import CloseIcon from '@material-ui/icons/Close'
 import '../Game/Game.css'
 
-class InventoryDialog extends Component {
+class ObjectsDialog extends Component {
   constructor(props){
     super(props)
     this.state = {
@@ -11,14 +11,14 @@ class InventoryDialog extends Component {
     }
   } 
   handleClose = () => {
-    this.props.onClose('inventory')
+    this.props.onClose('objects')
   }
 
   render() {
     const { selectedItem, ...other } = this.props
     return(
       <Dialog onClose={this.handleClose} aria-labelledby="inventory-dialog-title" {...other}>
-        <DialogTitle id="inventory-dialog-title">Inventory</DialogTitle>
+        <DialogTitle id="inventory-dialog-title">Objects</DialogTitle>
         <div>
           <List>
             {this.state.inventory.map(item => (
@@ -47,4 +47,4 @@ class InventoryDialog extends Component {
   }
 }
 
-export default InventoryDialog
+export default ObjectsDialog

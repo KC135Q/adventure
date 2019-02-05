@@ -3,34 +3,32 @@ import {Avatar, Dialog, DialogTitle, List, ListItem, ListItemAvatar, ListItemTex
 import CloseIcon from '@material-ui/icons/Close'
 import '../Game/Game.css'
 
-class InventoryDialog extends Component {
+class ProfileDialog extends Component {
   constructor(props){
     super(props)
     this.state = {
-      inventory: props.inventory
+      profile: props.profile
     }
   } 
   handleClose = () => {
-    this.props.onClose('inventory')
+    this.props.onClose('profile')
   }
 
   render() {
     const { selectedItem, ...other } = this.props
     return(
-      <Dialog onClose={this.handleClose} aria-labelledby="inventory-dialog-title" {...other}>
-        <DialogTitle id="inventory-dialog-title">Inventory</DialogTitle>
+      <Dialog onClose={this.handleClose} aria-labelledby="profile-dialog-title" {...other}>
+        <DialogTitle id="profile-dialog-title">{this.state.profile.name}</DialogTitle>
         <div>
           <List>
-            {this.state.inventory.map(item => (
-              <ListItem button onClick={() => this.handleClose()} key={item.index}>
-                <ListItemAvatar>
-                  <Avatar className="avatar">
-                    <img src={item.imgTh} alt={item.name}></img>
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={item.name} />
-              </ListItem>
-            ))}
+            <ListItem button onClick={() => this.handleClose()} key={this.state.profile.index}>
+              <ListItemAvatar>
+                <Avatar className="avatar">
+                  <img src={this.state.profile.imgTh} alt={this.state.profile.name}></img>
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={this.state.profile.race} />
+            </ListItem>
             <hr />
             <ListItem button onClick={() => this.handleClose()}>
               <ListItemAvatar>
@@ -47,4 +45,4 @@ class InventoryDialog extends Component {
   }
 }
 
-export default InventoryDialog
+export default ProfileDialog

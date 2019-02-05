@@ -5,6 +5,9 @@ import Work from '@material-ui/icons/Work'
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk'
 import Spa from '@material-ui/icons/Spa'
 import InventoryDialog from '../InventoryDialog'
+import ProfileDialog from '../ProfileDialog'
+import ObjectsDialog from '../ObjectsDialog'
+import InteractionDialog from '../InteractionDialog'
 
 const Map = require ('./map.json')
 
@@ -57,7 +60,8 @@ let inventory = [
     "cost": 10,
     "damage": 5,
     "protection": 1,
-    "img": "dagger.jpg"
+    "img": "dagger.jpg",
+    "imgTh": "dagger50.jpg"
   },
   {
     "index": 1,
@@ -65,9 +69,72 @@ let inventory = [
     "cost": 25,
     "damage": 0,
     "protection": 10,
-    "img": "potion.jpg"
+    "img": "potion.jpg",
+    "imgTh": "potion50.jpg"
   }
 ]
+
+let interactions = [
+  {
+    "index": 0,
+    "name": "Psylocke",
+    "cost": 0,
+    "damage": 5,
+    "protection": 0,
+    "img": "psylocke.jpg",
+    "imgTh": "psylocke50.jpg"
+  },
+  {
+    "index": 1,
+    "name": "Gandalf",
+    "cost": 0,
+    "damage": 0,
+    "protection": 100,
+    "img": "gandalf.jpg",
+    "imgTh": "gandalf50.jpg"
+  },
+  {
+    "index": 2,
+    "name": "Zelda",
+    "cost": 0,
+    "damage": 0,
+    "protection": 0,
+    "img": "zelda.jpg",
+    "imgTh": "zelda50.jpg"
+  }
+]
+
+let objects = [
+  {
+    "index": 0,
+    "name": "rations",
+    "cost": 50,
+    "damage": 0,
+    "protection": 0,
+    "img": "rations.jpg",
+    "imgTh": "rations50.jpg"
+  },
+  {
+    "index": 1,
+    "name": "shield",
+    "cost": 250,
+    "damage": 5,
+    "protection": 10,
+    "img": "shield.jpg",
+    "imgTh": "shield50.jpg"
+  }
+]
+
+let profile = {
+  "index": 0,
+  "name": "Danny K",
+  "cost": 1000000,
+  "race": "Human",
+  "damage": 7,
+  "protection": 7,
+  "img": "dan.jpg",
+  "imgTh": "dan50.jpg"
+}
 
 class Game extends Component {
   constructor(props) {
@@ -76,7 +143,12 @@ class Game extends Component {
       message: 'Welcome!',
       location: Map.Home,
       inventoryOpen: false,
-      selectedItem: inventory[0]
+      profileOpen: false,
+      objectsOpen: false,
+      interactionOpen: false,
+      selectedItem: inventory[0],
+      selectedObject: objects[0],
+      selectedInteracation: interactions[1]
     }
   }
 
@@ -98,7 +170,19 @@ class Game extends Component {
     if (dlog === 'inventory') {
       this.setState({
         inventoryOpen: true,
-      });
+      })
+    } else if (dlog === 'profile') {
+      this.setState({
+        profileOpen: true,
+      })
+    } else if (dlog === 'objects') {
+      this.setState({
+        objectsOpen: true,
+      })
+    } else if (dlog === 'interaction') {
+      this.setState({
+        interactionOpen: true,
+      })
     }
   };
 
@@ -107,6 +191,18 @@ class Game extends Component {
       this.setState({
         inventoryOpen: false
       })      
+    } else if (dlog === 'profile') {
+      this.setState({
+        profileOpen: false
+      })
+    } else if (dlog === 'objects') {
+      this.setState({
+        objectsOpen: false
+      })
+    } else if (dlog === 'interaction') {
+      this.setState({
+        interactionOpen: false
+      })
     }
   }
 
@@ -121,6 +217,12 @@ class Game extends Component {
             onClick={() => {this.handleClickOpen('profile')}}
             onMouseOver={() => {this.setState({message: 'Profile'})}}
             onMouseLeave={() => {this.setState({message: this.state.location.message})}}
+          />
+          <ProfileDialog 
+            selectedItem={this.profile}
+            open={this.state.profileOpen}
+            onClose={this.handleClose}
+            profile = {profile}
           />
         </Grid>
         <Grid item xs={8} style={northStyle}>
@@ -184,12 +286,19 @@ class Game extends Component {
         <Grid item xs={2}>
           <Spa
             style={iconStyle}
+            onClick={() => {this.handleClickOpen('objects')}}
             onMouseOver={() => {
               this.setState({message: 'Objects'})
             }}
             onMouseLeave={() => {
               this.setState({message: this.state.location.message})
             }}
+          />
+          <ObjectsDialog 
+            selectedItem={this.state.selectedObject}
+            open={this.state.objectsOpen}
+            onClose={this.handleClose}
+            inventory = {objects}
           />
         </Grid>
         <Grid item xs={8} style={southStyle}>
@@ -205,12 +314,19 @@ class Game extends Component {
         <Grid item xs={2}>
           <PhoneInTalk
             style={iconStyle}
+            onClick = {() => {this.handleClickOpen('interaction')}}
             onMouseOver={() => {
               this.setState({message: 'Interact'})
             }}
             onMouseLeave={() => {
               this.setState({message: this.state.location.message})
             }}              
+          />
+          <InteractionDialog 
+            selectedItem={this.state.selectedInteraction}
+            open={this.state.interactionOpen}
+            onClose={this.handleClose}
+            inventory = {interactions}
           />
         </Grid>
       </Grid>
