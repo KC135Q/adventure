@@ -4,7 +4,6 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import Work from '@material-ui/icons/Work'
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk'
 import Spa from '@material-ui/icons/Spa'
-import Modal from '../Modal'
 import InventoryDialog from '../InventoryDialog'
 
 const Map = require ('./map.json')
@@ -51,6 +50,20 @@ const westStyle = {
   textAlign: "right"
 }
 
+let inventory = [
+  {"dagger": {
+    "cost": 10,
+    "damage": 5,
+    "protection": 1,
+    "img": "dagger.jpg"
+  },
+  "potion": {
+    "cost": 25,
+    "damage": 0,
+    "protection": 10,
+    "img": "potion.jpg"
+  }}
+]
 
 class Game extends Component {
   constructor(props) {
@@ -58,7 +71,8 @@ class Game extends Component {
     this.state = {
       message: 'Welcome!',
       location: Map.Home,
-      isOpen: false
+      inventoryOpen: false,
+      selectedItem: inventory[0]
     }
   }
 
@@ -76,6 +90,20 @@ class Game extends Component {
     })
   }
 
+  handleInventoryOpen = () => {
+    this.setState({
+      inventoryOpen: true,
+    });
+  };
+
+  handleClose = (dlog) => {
+    if (dlog === 'inventory') {
+      this.setState({
+        inventoryOpen: false
+      })      
+    }
+  }
+
   render() {
 
   return(
@@ -87,7 +115,12 @@ class Game extends Component {
             onMouseOver={() => {this.setState({message: 'Profile'})}}
             onMouseLeave={() => {this.setState({message: this.state.location.message})}}
           />
-          <InventoryDialog />
+          <InventoryDialog 
+            selectedItem={this.state.selectedItem}
+            open={this.state.inventoryOpen}
+            onClose={this.handleClose}
+            inventory = {this.inventory}
+          />
         </Grid>
         <Grid item xs={8} style={northStyle}>
           {(this.state.location.move.North !== null) ?

@@ -3,25 +3,16 @@ import {Avatar, Dialog, DialogTitle, List, ListItem, ListItemAvatar, ListItemTex
 import {AddIcon} from '@material-ui/icons/Add'
 import {PersonIcon} from '@material-ui/icons/Person'
 
-let inventory = [
-  {"dagger": {
-    "cost": 10,
-    "damage": 5,
-    "protection": 1,
-    "img": "dagger.jpg"
-  },
-  "potion": {
-    "cost": 25,
-    "damage": 0,
-    "protection": 10,
-    "img": "potion.jpg"
-  }}
-]
-
 class InventoryDialog extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      inventory: props.inventory
+    }
+  } 
   handleClose = () => {
-    alert("closing")
-  };
+    this.props.onClose('inventory')
+  }
 
   render() {
     return(
@@ -29,7 +20,7 @@ class InventoryDialog extends Component {
         <DialogTitle id="simple-dialog-title">Set backup account</DialogTitle>
         <div>
           <List>
-            {inventory.map(item => (
+            {this.state.inventory.map(item => (
               <ListItem button onClick={() => this.handleListItemClick(item)} key={item}>
                 <ListItemAvatar>
                   <Avatar className="avatar">
@@ -39,14 +30,6 @@ class InventoryDialog extends Component {
                 <ListItemText primary={item} />
               </ListItem>
             ))}
-            <ListItem button onClick={() => this.handleListItemClick('addAccount')}>
-              <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="add account" />
-            </ListItem>
           </List>
         </div>
       </Dialog>
