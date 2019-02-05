@@ -51,18 +51,22 @@ const westStyle = {
 }
 
 let inventory = [
-  {"dagger": {
+  {
+    "index": 0,
+    "name": "dagger",
     "cost": 10,
     "damage": 5,
     "protection": 1,
     "img": "dagger.jpg"
   },
-  "potion": {
+  {
+    "index": 1,
+    "name": "potion",
     "cost": 25,
     "damage": 0,
     "protection": 10,
     "img": "potion.jpg"
-  }}
+  }
 ]
 
 class Game extends Component {
@@ -90,10 +94,12 @@ class Game extends Component {
     })
   }
 
-  handleInventoryOpen = () => {
-    this.setState({
-      inventoryOpen: true,
-    });
+  handleClickOpen = (dlog) => {
+    if (dlog === 'inventory') {
+      this.setState({
+        inventoryOpen: true,
+      });
+    }
   };
 
   handleClose = (dlog) => {
@@ -112,14 +118,9 @@ class Game extends Component {
         <Grid item xs={2}>
           <AccountCircle 
             style={iconStyle}
+            onClick={() => {this.handleClickOpen('profile')}}
             onMouseOver={() => {this.setState({message: 'Profile'})}}
             onMouseLeave={() => {this.setState({message: this.state.location.message})}}
-          />
-          <InventoryDialog 
-            selectedItem={this.state.selectedItem}
-            open={this.state.inventoryOpen}
-            onClose={this.handleClose}
-            inventory = {this.inventory}
           />
         </Grid>
         <Grid item xs={8} style={northStyle}>
@@ -135,12 +136,19 @@ class Game extends Component {
         <Grid item xs={2} >
           <Work
             style={iconStyle}
+            onClick={() => {this.handleClickOpen('inventory')}}
             onMouseOver={() => {
               this.setState({message: 'Inventory'})
             }}
             onMouseLeave={() => {
               this.setState({message: this.state.location.message})
             }}
+          />
+          <InventoryDialog 
+            selectedItem={this.state.selectedItem}
+            open={this.state.inventoryOpen}
+            onClose={this.handleClose}
+            inventory = {inventory}
           />
         </Grid>
       </Grid>
