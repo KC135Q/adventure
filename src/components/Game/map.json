@@ -1,0 +1,24 @@
+{
+  "Home": {
+    "img": "cabin_768x450.jpg",
+    "name": "Home",
+    "move": {
+      "North": "Castle",
+      "East": null,
+      "South": null,
+      "West": null
+    },
+    "message": "There is no place like 127.0.0.1"
+  },
+  "Castle": {
+    "img": "castle_768x450.jpg",
+    "name": "Castle",
+    "move": {
+      "North": null,
+      "East": null,
+      "South": "Home",
+      "West": null
+    },
+    "message": "The pits of despair must be nearby ..."
+  }
+}
