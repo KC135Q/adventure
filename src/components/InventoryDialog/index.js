@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import {Avatar, Dialog, DialogTitle, List, ListItem, ListItemAvatar, ListItemText} from '@material-ui/core'
-import {AddIcon} from '@material-ui/icons/Add'
 import {PersonIcon} from '@material-ui/icons/Person'
 
 class InventoryDialog extends Component {
