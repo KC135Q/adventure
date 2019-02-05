@@ -4,6 +4,9 @@ import AccountCircle from '@material-ui/icons/AccountCircle'
 import Work from '@material-ui/icons/Work'
 import PhoneInTalk from '@material-ui/icons/PhoneInTalk'
 import Spa from '@material-ui/icons/Spa'
+import Modal from '../Modal'
+import InventoryDialog from '../InventoryDialog'
+
 const Map = require ('./map.json')
 
 const bgImage = "./meadow_blue.png"
@@ -48,12 +51,14 @@ const westStyle = {
   textAlign: "right"
 }
 
+
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
       message: 'Welcome!',
-      location: Map.Home
+      location: Map.Home,
+      isOpen: false
     }
   }
 
@@ -61,8 +66,6 @@ class Game extends Component {
     this.setState({
       location: Map[name],
       message: Map[name].message
-    }, () =>{
-      console.log(`Location ${[this.state.location.name]}`)
     })
   }
 
@@ -70,8 +73,6 @@ class Game extends Component {
     this.setState({
       location: Map.Home,
       message: Map.Home.message
-    }, () =>{
-      console.log(`North? ${this.state.location.move.North}`)
     })
   }
 
@@ -82,10 +83,11 @@ class Game extends Component {
       <Grid container item xs={12} spacing={24}>
         <Grid item xs={2}>
           <AccountCircle 
-            style={iconStyle} 
+            style={iconStyle}
             onMouseOver={() => {this.setState({message: 'Profile'})}}
             onMouseLeave={() => {this.setState({message: this.state.location.message})}}
           />
+          <InventoryDialog />
         </Grid>
         <Grid item xs={8} style={northStyle}>
           {(this.state.location.move.North !== null) ?
